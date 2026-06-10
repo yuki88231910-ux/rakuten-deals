@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://yuki88231910-ux.github.io/rakuten-deals/sitemap.xml
