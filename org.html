@@ -42,8 +42,8 @@
 <header>
   <span class="live">LIVE OPS</span>
   <h1>AI Pipeline — 自動運用ダッシュボード</h1>
-  <div class="sub">楽天お得情報の収集・コピー執筆・配信・公開・分析を毎朝7:30に無人実行。ターゲット: 40代以上の生活者。<br>
-  Fully automated deal pipeline targeting 40+ consumers: research → curation → AI copywriting → publishing → analytics.</div>
+  <div class="sub">楽天商品を海外バイヤー向けに収集・コピー執筆・配信・公開・分析を毎朝7:30に無人実行。<br>
+  Automated pipeline curating Japanese products for overseas buyers: research → curation → AI copywriting → publishing → analytics.</div>
   <div class="honest">⚠ このページの数字とログはすべて実際の実行記録です（演出ではありません） / All numbers are real execution logs.</div>
 </header>
 <main>
@@ -51,32 +51,32 @@
     <div class="card">
       <div class="head"><span class="num">01</span><span class="dot ok"></span></div>
       <h2>リサーチ <small>Research</small></h2>
-      <p class="desc">楽天API / 12ジャンル巡回</p>
-      <p class="stat">32商品 選定済み</p>
+      <p class="desc">楽天API / 10ジャンル巡回</p>
+      <p class="stat">18商品 選定済み</p>
     </div>
     <div class="card">
       <div class="head"><span class="num">02</span><span class="dot ok"></span></div>
       <h2>選定 <small>Curation</small></h2>
       <p class="desc">高ポイント×高評価フィルタ + 学習補正</p>
-      <p class="stat">累計 42 商品をプロモート</p>
+      <p class="stat">累計 47 商品をプロモート</p>
     </div>
     <div class="card">
-      <div class="head"><span class="num">03</span><span class="dot idle"></span></div>
+      <div class="head"><span class="num">03</span><span class="dot ok"></span></div>
       <h2>執筆 <small>Copywriting</small></h2>
       <p class="desc">Claude が商品コピーを日英で執筆</p>
-      <p class="stat">本日 0件 生成</p>
+      <p class="stat">本日 10件 生成</p>
     </div>
     <div class="card">
       <div class="head"><span class="num">04</span><span class="dot ok"></span></div>
       <h2>配信 <small>Publishing</small></h2>
       <p class="desc">Bluesky / Hatena Blog</p>
-      <p class="stat">累計 Bluesky 20投稿・Blog 4記事</p>
+      <p class="stat">累計 Bluesky 25投稿・Blog 5記事</p>
     </div>
     <div class="card">
       <div class="head"><span class="num">05</span><span class="dot ok"></span></div>
       <h2>公開 <small>Deploy</small></h2>
       <p class="desc">GitHub Pages 自動デプロイ（サイト/RSS/sitemap）</p>
-      <p class="stat">最終更新 2026/06/13 22:30</p>
+      <p class="stat">最終更新 2026/06/14 01:35</p>
     </div>
     <div class="card">
       <div class="head"><span class="num">06</span><span class="dot ok"></span></div>
@@ -88,26 +88,26 @@
   <div class="pipeline">リサーチ → 選定 → 執筆(Claude) → 配信 → 公開 → 分析 → (毎朝ループ)</div>
   <div class="logbox">
     <h3>SYSTEM LOG（実ログ・直近）</h3>
-<div class="ln">[ok] キッチン用品: 30件</div>
-<div class="ln">[ok] インテリア・寝具: 30件</div>
-<div class="ln">[ok] 家電: 30件</div>
-<div class="ln">[ok] コスメ・香水: 30件</div>
-<div class="ln">[ok] 日用品・文房具: 30件</div>
-<div class="ln">[done] 32件 -&gt; out/deals.json</div>
-<div class="ln">[2026-06-13 22:30:23] === annotate_deals.py (exit 0) ===</div>
-<div class="ln">[warn] コピー生成失敗（テンプレート文で続行）: You&#x27;ve hit your session limit · resets 1:30am (UTC)</div>
-<div class="ln">[2026-06-13 22:30:25] === make_posts.py (exit 0) ===</div>
-<div class="ln">[done] 5件の投稿文 -&gt; posts_20260613.txt</div>
-<div class="ln">[2026-06-13 22:30:49] === publish_posts.py (exit 0) ===</div>
+<div class="ln">[ok] レディースファッション: 30件</div>
+<div class="ln">[ok] メンズファッション: 30件</div>
+<div class="ln">[ok] 文房具・日用品: 30件</div>
+<div class="ln">[ok] キッチン・包丁: 30件</div>
+<div class="ln">[done] 18件 -&gt; out/deals.json</div>
+<div class="ln">[2026-06-14 01:36:40] === annotate_deals.py (exit 0) ===</div>
+<div class="ln">[ok] claude-cli (haiku): items=10</div>
+<div class="ln">[done] 10件にコピーを付与</div>
+<div class="ln">[2026-06-14 01:36:43] === make_posts.py (exit 0) ===</div>
+<div class="ln">[done] 5件の投稿文 -&gt; posts_20260614.txt</div>
+<div class="ln">[2026-06-14 01:37:04] === publish_posts.py (exit 0) ===</div>
 <div class="ln">[done] bluesky: 5件投稿</div>
 <div class="ln">[done] hatena: まとめ記事1本投稿</div>
-<div class="ln">[2026-06-13 22:30:49] === make_site.py (exit 0) ===</div>
-<div class="ln">[done] 32件 -&gt; /home/machitani/rakuten-affiliate/out/site/index.html</div>
+<div class="ln">[2026-06-14 01:37:04] === make_site.py (exit 0) ===</div>
+<div class="ln">[done] 18件 -&gt; /home/machitani/rakuten-affiliate/out/site/index.html</div>
 <div class="ln">[done] rss.xml / sitemap.xml / robots.txt</div>
   </div>
 </main>
 <footer>
-  ステータス: ● RUNNING ／ 最終実行 2026/06/13 22:30<br>
+  ステータス: ● RUNNING ／ 最終実行 2026/06/14 01:35<br>
   <a href="./">→ このパイプラインが運営するお得情報サイトを見る</a>
 </footer>
 </body>
