@@ -82,16 +82,12 @@
       <div class="head"><span class="num">06</span><span class="dot ok"></span></div>
       <h2>分析 <small>Analytics</small></h2>
       <p class="desc">週次: 反応データ → 選定方針を自動調整</p>
-      <p class="stat">反応計測 1 / 方針: 反応データ不足(1&lt;5)のため中立運転を継続</p>
+      <p class="stat">学習待機中 ・ 反応 2/5（到達で自動学習が起動）</p>
     </div>
   </div>
   <div class="pipeline">リサーチ → 選定 → 執筆(Claude) → 配信 → 公開 → 分析 → (毎朝ループ)</div>
   <div class="logbox">
     <h3>SYSTEM LOG（実ログ・直近）</h3>
-<div class="ln">[ok] レディースファッション: 30件</div>
-<div class="ln">[ok] メンズファッション: 30件</div>
-<div class="ln">[ok] 文房具・日用品: 30件</div>
-<div class="ln">[ok] キッチン・包丁: 30件</div>
 <div class="ln">[done] 25件 -&gt; out/deals.json</div>
 <div class="ln">[2026-06-14 22:31:37] === annotate_deals.py (exit 0) ===</div>
 <div class="ln">[ok] claude-cli (haiku): items=10</div>
@@ -104,6 +100,10 @@
 <div class="ln">[2026-06-14 22:32:02] === make_site.py (exit 0) ===</div>
 <div class="ln">[done] 25件 -&gt; /home/machitani/rakuten-affiliate/out/site/index.html</div>
 <div class="ln">[done] rss.xml / sitemap.xml / robots.txt</div>
+<div class="ln">[2026-06-14 22:32:02] === make_dashboard.py (exit 0) ===</div>
+<div class="ln">[done] org.html (stages=6, log=16行)</div>
+<div class="ln">[2026-06-14 22:32:02] === check_pinterest.py (exit 0) ===</div>
+<div class="ln">[wait] Pinterest まだ保留中</div>
   </div>
 </main>
 <footer>
