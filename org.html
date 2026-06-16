@@ -34,6 +34,16 @@
   .logbox h3 { color: #8b96ad; font-size: .8rem; letter-spacing: .15em; margin-bottom: 10px; }
   .ln { font-family: monospace; font-size: .74rem; color: #4ade80; line-height: 1.7; opacity: .9;
          white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sech { color:#8b96ad; font-size:.8rem; letter-spacing:.1em; margin:22px 0 10px; }
+  .ent-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px; }
+  .ent { background:#121a2b; border:1px solid #1f2b45; border-radius:10px; padding:12px; text-decoration:none; color:#dce3f0; display:block; }
+  .ent:hover { border-color:#38bdf8; }
+  .ent-h { display:flex; align-items:center; gap:6px; font-size:.92rem; }
+  .ent-dot { width:8px; height:8px; border-radius:50%; background:#4ade80; flex:none; }
+  .ent-dot.pend { background:#fbbf24; }
+  .ent-dot.off { background:#64748b; }
+  .ent-k { color:#64748b; font-size:.7rem; margin-top:5px; }
+  .ent-s { color:#38bdf8; font-size:.78rem; margin-top:7px; font-family:monospace; }
   footer { text-align: center; color: #64748b; font-size: .75rem; padding: 24px; }
   footer a { color: #38bdf8; }
 </style>
@@ -86,12 +96,10 @@
     </div>
   </div>
   <div class="pipeline">リサーチ → 選定 → 執筆(Claude) → 配信 → 公開 → 分析 → (毎朝ループ)</div>
+  <h3 class="sech">配信チャネル & 収益化基盤（クリックで各アクティビティ詳細）</h3>
+  <div class="ent-grid"><a class="ent" href="activity_bluesky.html"><div class="ent-h"><span class="ent-dot ok"></span><b>Bluesky</b></div><div class="ent-k">配信チャネル</div><div class="ent-s">35投稿 ›</div></a><a class="ent" href="activity_hatena.html"><div class="ent-h"><span class="ent-dot ok"></span><b>はてなブログ</b></div><div class="ent-k">配信チャネル</div><div class="ent-s">7記事 ›</div></a><a class="ent" href="activity_pinterest.html"><div class="ent-h"><span class="ent-dot pend"></span><b>Pinterest</b></div><div class="ent-k">配信チャネル</div><div class="ent-s">有効化待ち ›</div></a><a class="ent" href="activity_x.html"><div class="ent-h"><span class="ent-dot off"></span><b>X（旧Twitter）</b></div><div class="ent-k">配信チャネル</div><div class="ent-s">停止 ›</div></a><a class="ent" href="activity_rakuten.html"><div class="ent-h"><span class="ent-dot ok"></span><b>楽天アフィリエイト</b></div><div class="ent-k">収益化基盤</div><div class="ent-s">稼働中 ›</div></a><a class="ent" href="activity_buyee.html"><div class="ent-h"><span class="ent-dot pend"></span><b>Buyee（海外発送）</b></div><div class="ent-k">収益化基盤</div><div class="ent-s">未着手 ›</div></a></div>
   <div class="logbox">
     <h3>SYSTEM LOG（実ログ・直近）</h3>
-<div class="ln">[warn] レディースファッション(100371) 取得失敗: &lt;urlopen error [Errno -3] Temporary failure in name resolution&gt;</div>
-<div class="ln">[ok] メンズファッション: 30件</div>
-<div class="ln">[ok] 文房具・日用品: 30件</div>
-<div class="ln">[ok] キッチン・包丁: 30件</div>
 <div class="ln">[done] 5件 -&gt; out/deals.json</div>
 <div class="ln">[2026-06-15 22:33:09] === annotate_deals.py (exit 0) ===</div>
 <div class="ln">[ok] claude-cli (haiku): items=5</div>
@@ -104,6 +112,10 @@
 <div class="ln">[2026-06-15 22:33:38] === make_site.py (exit 0) ===</div>
 <div class="ln">[done] 5件 -&gt; /home/machitani/rakuten-affiliate/out/site/index.html</div>
 <div class="ln">[done] rss.xml / sitemap.xml / robots.txt</div>
+<div class="ln">[2026-06-15 22:33:39] === make_dashboard.py (exit 0) ===</div>
+<div class="ln">[done] org.html (stages=6, log=16行)</div>
+<div class="ln">[2026-06-15 22:33:40] === check_pinterest.py (exit 0) ===</div>
+<div class="ln">[wait] Pinterest まだ保留中</div>
   </div>
 </main>
 <footer>
