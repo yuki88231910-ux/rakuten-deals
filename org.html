@@ -3,47 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Pipeline — Live Operations | 楽天お得情報</title>
-<meta name="description" content="楽天お得情報サイトを動かしている自動化パイプラインの実稼働ダッシュボード。表示はすべて実ログです。">
+<title>稼働状況＆収益化フロー | Japan Finds</title>
+<meta name="description" content="Japan Findsを動かす自動パイプラインの稼働状況と収益化フローを図解。数字はすべて実ログ。">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: #0b0f1a; color: #dce3f0; font-family: "Hiragino Sans", "Yu Gothic", sans-serif; }
-  header { padding: 28px 20px 10px; max-width: 1000px; margin: 0 auto; }
   .live { display: inline-flex; align-items: center; gap: 8px; background: #11331f; color: #4ade80;
           font-size: .75rem; font-weight: 700; padding: 4px 12px; border-radius: 999px; letter-spacing: .1em; }
-  .live::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #4ade80;
-          animation: pulse 1.6s infinite; }
+  .live::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #4ade80; animation: pulse 1.6s infinite; }
   @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .25; } }
-  h1 { font-size: 1.5rem; margin-top: 12px; }
-  .sub { color: #8b96ad; font-size: .85rem; margin-top: 6px; line-height: 1.6; }
-  .honest { color: #fbbf24; font-size: .8rem; margin-top: 4px; }
-  main { max-width: 1000px; margin: 0 auto; padding: 18px 20px 40px; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 14px; }
-  .card { background: #121a2b; border: 1px solid #1f2b45; border-radius: 12px; padding: 16px; }
-  .head { display: flex; justify-content: space-between; align-items: center; }
-  .num { color: #38bdf8; font-family: monospace; font-size: .8rem; }
-  .dot { width: 10px; height: 10px; border-radius: 50%; }
-  .dot.ok { background: #4ade80; box-shadow: 0 0 8px #4ade80; animation: pulse 2s infinite; }
-  .dot.idle { background: #64748b; }
-  h2 { font-size: 1.05rem; margin: 8px 0 4px; }
-  h2 small { color: #64748b; font-weight: 400; font-size: .75rem; margin-left: 6px; }
-  .desc { color: #8b96ad; font-size: .8rem; line-height: 1.5; }
-  .stat { color: #38bdf8; font-size: .82rem; margin-top: 10px; font-family: monospace; }
-  .pipeline { color: #64748b; font-family: monospace; font-size: .78rem; text-align: center; margin: 20px 0; }
-  .logbox { background: #0a0e17; border: 1px solid #1f2b45; border-radius: 12px; padding: 14px 16px; margin-top: 8px; }
-  .logbox h3 { color: #8b96ad; font-size: .8rem; letter-spacing: .15em; margin-bottom: 10px; }
-  .ln { font-family: monospace; font-size: .74rem; color: #4ade80; line-height: 1.7; opacity: .9;
-         white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  header { max-width: 980px; margin: 0 auto; padding: 26px 20px 6px; }
+  h1 { font-size: 1.4rem; margin-top: 12px; }
+  .sub { color: #8b96ad; font-size: .82rem; margin-top: 6px; line-height: 1.6; }
+  main { max-width: 980px; margin: 0 auto; padding: 12px 20px 40px; }
+  .figure { background: transparent; margin: 8px 0 6px; }
   .sech { color:#8b96ad; font-size:.8rem; letter-spacing:.1em; margin:22px 0 10px; }
   .ent-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px; }
   .ent { background:#121a2b; border:1px solid #1f2b45; border-radius:10px; padding:12px; text-decoration:none; color:#dce3f0; display:block; }
   .ent:hover { border-color:#38bdf8; }
   .ent-h { display:flex; align-items:center; gap:6px; font-size:.92rem; }
   .ent-dot { width:8px; height:8px; border-radius:50%; background:#4ade80; flex:none; }
-  .ent-dot.pend { background:#fbbf24; }
-  .ent-dot.off { background:#64748b; }
+  .ent-dot.pend { background:#fbbf24; } .ent-dot.off { background:#64748b; }
   .ent-k { color:#64748b; font-size:.7rem; margin-top:5px; }
   .ent-s { color:#38bdf8; font-size:.78rem; margin-top:7px; font-family:monospace; }
+  .logbox { background: #0a0e17; border: 1px solid #1f2b45; border-radius: 12px; padding: 14px 16px; margin-top: 8px; }
+  .logbox h3 { color: #8b96ad; font-size: .8rem; letter-spacing: .15em; margin-bottom: 10px; }
+  .ln { font-family: monospace; font-size: .74rem; color: #4ade80; line-height: 1.7; opacity: .9;
+         white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   footer { text-align: center; color: #64748b; font-size: .75rem; padding: 24px; }
   footer a { color: #38bdf8; }
 </style>
@@ -51,57 +37,82 @@
 <body>
 <header>
   <span class="live">LIVE OPS</span>
-  <h1>AI Pipeline — 自動運用ダッシュボード</h1>
-  <div class="sub">楽天商品を海外バイヤー向けに収集・コピー執筆・配信・公開・分析を毎朝7:30に無人実行。<br>
-  Automated pipeline curating Japanese products for overseas buyers: research → curation → AI copywriting → publishing → analytics.</div>
-  <div class="honest">⚠ このページの数字とログはすべて実際の実行記録です（演出ではありません） / All numbers are real execution logs.</div>
+  <h1>稼働状況 ＆ 収益化フロー</h1>
+  <div class="sub">楽天商品を海外バイヤー向けに毎朝2回・無人配信。下図の数字とログはすべて実データ（演出なし）。</div>
 </header>
 <main>
-  <div class="grid">
-    <div class="card">
-      <div class="head"><span class="num">01</span><span class="dot ok"></span></div>
-      <h2>リサーチ <small>Research</small></h2>
-      <p class="desc">楽天API / 10ジャンル巡回</p>
-      <p class="stat">0商品 選定済み</p>
-    </div>
-    <div class="card">
-      <div class="head"><span class="num">02</span><span class="dot ok"></span></div>
-      <h2>選定 <small>Curation</small></h2>
-      <p class="desc">高ポイント×高評価フィルタ + 学習補正</p>
-      <p class="stat">累計 80 商品をプロモート</p>
-    </div>
-    <div class="card">
-      <div class="head"><span class="num">03</span><span class="dot idle"></span></div>
-      <h2>執筆 <small>Copywriting</small></h2>
-      <p class="desc">Claude が商品コピーを日英で執筆</p>
-      <p class="stat">本日 0件 生成</p>
-    </div>
-    <div class="card">
-      <div class="head"><span class="num">04</span><span class="dot ok"></span></div>
-      <h2>配信 <small>Publishing</small></h2>
-      <p class="desc">Bluesky / Hatena Blog</p>
-      <p class="stat">累計 Bluesky 73投稿・Blog 15記事</p>
-    </div>
-    <div class="card">
-      <div class="head"><span class="num">05</span><span class="dot ok"></span></div>
-      <h2>公開 <small>Deploy</small></h2>
-      <p class="desc">GitHub Pages 自動デプロイ（サイト/RSS/sitemap）</p>
-      <p class="stat">最終更新 2026/06/21 11:05</p>
-    </div>
-    <div class="card">
-      <div class="head"><span class="num">06</span><span class="dot ok"></span></div>
-      <h2>分析 <small>Analytics</small></h2>
-      <p class="desc">週次: 反応データ → 選定方針を自動調整</p>
-      <p class="stat">学習待機中 ・ 反応 4/5（到達で自動学習が起動）</p>
-    </div>
-  </div>
-  <div class="pipeline">リサーチ → 選定 → 執筆(Claude) → 配信 → 公開 → 分析 → (毎朝ループ)</div>
+  <div class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 470" role="img" width="100%" class="s">
+<title>Japan Finds 稼働状況＆収益化フロー</title>
+<desc>毎朝2回の自動パイプラインが配信し、オーディエンス（フォロワー2）が最大のボトルネック。国内=楽天アフィリ稼働中、海外=Buyeeだが未収益化。</desc>
+<style>
+  svg{--bg:#0e1626;--panel:#16213a;--line:#27324d;--ink:#e7edf8;--mut:#8a98b5;--ok:#34d399;--pend:#fbbf24;--off:#64748b;--acc:#38bdf8;--amberbg:#241b06;--redtxt:#f87171;
+      font-family:-apple-system,"Hiragino Sans","Yu Gothic","Segoe UI",sans-serif}
+  .s text{fill:var(--ink)}
+  .cap{font-size:12px;fill:var(--mut)}
+  .lbl{font-size:12.5px;font-weight:600}
+  .m{font-size:11px;fill:var(--mut)}
+  .chip{font-size:10.5px;font-weight:600}
+  .pill{font-size:10.5px;font-weight:700}
+  .tag{font-size:11px;font-weight:700;fill:var(--pend)}
+  .ar{stroke:var(--mut);stroke-width:1.4;fill:none}
+</style>
+<rect x="4" y="4" width="752" height="462" rx="14" fill="var(--bg)" stroke="var(--line)"/>
+<text class="cap" x="28" y="28">稼働状況＆収益化フロー（数字はライブ実データ ・ 2026/06/21 11:05）</text>
+
+<rect x="28" y="40" width="704" height="32" rx="8" fill="var(--panel)" stroke="var(--line)"/>
+<circle cx="44" cy="56" r="4" fill="var(--ok)"/>
+<text class="lbl" x="58" y="60">① コンテンツ生成 ・ 毎朝2回 自動（収集 → AI執筆 → 配信 → 公開） ・ 本日0件</text>
+<path class="ar" d="M380 72 L380 84"/><path d="M376 81 L380 87 L384 81 Z" fill="var(--mut)"/>
+
+<g>
+  <g transform="translate(28,88)"><rect width="135" height="30" rx="8" fill="var(--panel)" stroke="var(--line)"/><circle cx="13" cy="15" r="3.5" fill="var(--ok)"/><text class="chip" x="24" y="19">Bluesky 73投稿</text></g>
+  <g transform="translate(170,88)"><rect width="135" height="30" rx="8" fill="var(--panel)" stroke="var(--line)"/><circle cx="13" cy="15" r="3.5" fill="var(--ok)"/><text class="chip" x="24" y="19">はてな 15記事</text></g>
+  <g transform="translate(312,88)"><rect width="135" height="30" rx="8" fill="var(--panel)" stroke="var(--line)"/><circle cx="13" cy="15" r="3.5" fill="var(--ok)"/><text class="chip" x="24" y="19">サイト/RSS</text></g>
+  <g transform="translate(454,88)"><rect width="135" height="30" rx="8" fill="var(--panel)" stroke="var(--line)"/><circle cx="13" cy="15" r="3.5" fill="var(--pend)"/><text class="chip" x="24" y="19">Pinterest 保留</text></g>
+  <g transform="translate(596,88)"><rect width="136" height="30" rx="8" fill="var(--panel)" stroke="var(--line)"/><circle cx="13" cy="15" r="3.5" fill="var(--off)"/><text class="chip" x="24" y="19">X 停止</text></g>
+</g>
+<path class="ar" d="M380 118 L380 130"/><path d="M376 127 L380 133 L384 127 Z" fill="var(--mut)"/>
+
+<rect x="28" y="134" width="704" height="46" rx="10" fill="var(--amberbg)" stroke="#7a5e12"/>
+<circle cx="44" cy="151" r="4" fill="var(--pend)"/>
+<text class="lbl" x="58" y="155">③ オーディエンス：フォロワー 2人 ・ Bluesky反応 4/5</text>
+<text class="tag" x="58" y="173">← 最大のボトルネック（ここが育てば下の2レールが収益化に動く）</text>
+
+<path class="ar" d="M380 180 L202 206"/><path d="M204 199 L198 209 L210 208 Z" fill="var(--mut)"/>
+<path class="ar" d="M380 180 L558 206"/><path d="M550 208 L562 209 L556 199 Z" fill="var(--mut)"/>
+
+<rect x="28" y="208" width="344" height="120" rx="10" fill="var(--panel)" stroke="#1f6b41"/>
+<text class="lbl" x="48" y="232">🇯🇵 国内バイヤー（買える）</text>
+<text class="m" x="48" y="254">楽天リンク → 楽天アフィリエイト</text>
+<rect x="48" y="264" width="92" height="22" rx="11" fill="#11331f" stroke="#1f6b41"/>
+<text class="pill" x="94" y="279" text-anchor="middle" fill="var(--ok)">✅ 稼働中</text>
+<text class="m" x="48" y="310">料率 2〜4% ・ Rakuten直接承認（審査不要）</text>
+
+<rect x="388" y="208" width="344" height="120" rx="10" fill="var(--panel)" stroke="#7a5e12"/>
+<text class="lbl" x="408" y="232">🌍 海外バイヤー</text>
+<text class="m" x="408" y="254">Buyeeリンク → アフィリネットワーク</text>
+<rect x="408" y="264" width="108" height="22" rx="11" fill="#3a2e0a" stroke="#7a5e12"/>
+<text class="pill" x="462" y="279" text-anchor="middle" fill="var(--pend)">❌ 未収益化</text>
+<text class="m" x="408" y="304">ネットワーク審査落ち（新規・低トラフィック）</text>
+<text class="m" x="408" y="320">→ リンクは機能するが未収益化</text>
+
+<path class="ar" d="M200 328 L378 352"/><path d="M370 352 L382 353 L376 343 Z" fill="var(--mut)"/>
+<path class="ar" d="M560 328 L382 352"/><path d="M386 343 L380 353 L392 352 Z" fill="var(--mut)"/>
+
+<rect x="120" y="354" width="520" height="44" rx="10" fill="var(--amberbg)" stroke="#7a5e12"/>
+<text class="lbl" x="140" y="376">④ 売上：楽天アフィリ管理画面で確認 ・ 国内クリックは収益化稼働</text>
+<text class="m" x="140" y="392">海外（Buyee）は未収益化 — トラフィックが育てば再申請で開通</text>
+
+<g transform="translate(28,418)">
+  <circle cx="6" cy="8" r="5" fill="var(--ok)"/><text class="m" x="16" y="11.5">稼働・収益化可能</text>
+  <circle cx="150" cy="8" r="5" fill="var(--pend)"/><text class="m" x="160" y="11.5">保留・未収益化</text>
+  <circle cx="300" cy="8" r="5" fill="var(--off)"/><text class="m" x="310" y="11.5">停止</text>
+</g>
+</svg></div>
   <h3 class="sech">配信チャネル & 収益化基盤（クリックで各アクティビティ詳細）</h3>
   <div class="ent-grid"><a class="ent" href="activity_bluesky.html"><div class="ent-h"><span class="ent-dot ok"></span><b>Bluesky</b></div><div class="ent-k">配信チャネル</div><div class="ent-s">73投稿 ›</div></a><a class="ent" href="activity_hatena.html"><div class="ent-h"><span class="ent-dot ok"></span><b>はてなブログ</b></div><div class="ent-k">配信チャネル</div><div class="ent-s">15記事 ›</div></a><a class="ent" href="activity_pinterest.html"><div class="ent-h"><span class="ent-dot pend"></span><b>Pinterest</b></div><div class="ent-k">配信チャネル</div><div class="ent-s">保留中（先方遅延） ›</div></a><a class="ent" href="activity_x.html"><div class="ent-h"><span class="ent-dot off"></span><b>X（旧Twitter）</b></div><div class="ent-k">配信チャネル</div><div class="ent-s">停止 ›</div></a><a class="ent" href="activity_rakuten.html"><div class="ent-h"><span class="ent-dot ok"></span><b>楽天アフィリエイト</b></div><div class="ent-k">収益化基盤</div><div class="ent-s">稼働中 ›</div></a><a class="ent" href="activity_buyee.html"><div class="ent-h"><span class="ent-dot pend"></span><b>Buyee（海外発送）</b></div><div class="ent-k">収益化基盤</div><div class="ent-s">リンクのみ・未収益化 ›</div></a></div>
   <div class="logbox">
     <h3>SYSTEM LOG（実ログ・直近）</h3>
-<div class="ln">[2026-06-21 11:05:20] === annotate_deals.py (exit 0) ===</div>
-<div class="ln">[skip] 対象なし</div>
 <div class="ln">[2026-06-21 11:05:20] === make_posts.py (exit 0) ===</div>
 <div class="ln">[skip] 投稿候補なし</div>
 <div class="ln">[2026-06-21 11:05:20] === publish_posts.py (exit 0) ===</div>
